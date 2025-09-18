@@ -11,6 +11,7 @@ from tokenizers.models import WordLevel
 from tokenizers.pre_tokenizers import Whitespace
 from tokenizers.trainers import WordLevelTrainer
 
+
 def causal_mask(size):
     mask = torch.triu(torch.ones(size, size), diagonal=1)
     return mask == 0
@@ -133,9 +134,4 @@ def build_data(config):
     train_dataloader = DataLoader(train_data, batch_size=config['batch_size'], shuffle=True)
     val_dataloader = DataLoader(val_data, batch_size=1, shuffle=True)
 
-    return train_dataloader, val_dataloader
-
-
-
-data = load_data()
-tokenizer = build_tokenizer({'tokenizer_file': 'english.json'}, data, 'english')
+    return train_dataloader, val_dataloader, tokenizer_source, tokenizer_target
